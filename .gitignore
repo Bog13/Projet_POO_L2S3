@@ -1,5 +1,8 @@
 *.class
-
+*.java~
+*.xmi
+*.pdf
+*.jpeg
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
