@@ -1,0 +1,32 @@
+#### PRESENTATION ORALE
+
+#Modalité
+* 10 minutes
+* les deux étudiants parlent
+* Présentation de 6 à 7 minutes
+* Questions de 5 minutes
+
+#Contenu
+Autour d'une démonstration
+Parler des 
+	~ choix
+	~ difficultés rencontrées
+		- par rapport à java
+		- par rapport au travail d'équipe
+		
+	~ ce qui marche/ ne marche pas
+
+
+#### RAPPORT
+# Présentation
+
+# Conception
+* le diagramme
+* choix
+
+# Réalisation
+
+
+# Conclusion
+
+

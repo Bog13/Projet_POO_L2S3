@@ -1,14 +1,14 @@
 public class Empty extends Tile {
 
-	private Position pos;
+    private Position pos;
 
-	protected Empty(Position p){
-		super(p);
-	}
+    protected Empty(Position p){
+	super("empty",p);
+    }
 
-	public String toString(){
-		return (".");
-	}	
+    public String toString(){
+	return (".");
+    }	
 
 }
 

@@ -1,11 +1,23 @@
 public abstract class Tile {
 
-	protected Position pos;
+    protected Position pos;
+    protected String id;
 
-	protected Tile(Position p){
-		this.pos=pos;
-	}
+    protected Tile(String id,Position p){
+	this.pos=p;
+	this.id = id;
+    }
 
-	abstract public String toString();
+    public Position getPosition()
+    {
+	return new Position(this.pos);
+    }
+
+    public String getId()
+    {
+	return this.id;
+    }
+
+    abstract public String toString();
 
 }

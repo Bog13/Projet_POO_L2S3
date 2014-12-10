@@ -33,6 +33,11 @@ public abstract class NPC implements Steerable, Meetable, Generable
 	this.dir = new Direction(dir);
     }
 
+    public Position getPosition()
+    {
+	return new Position(this.pos);
+    }
+
     //Meetable
     public void collideWith(Steerable s)
     {
@@ -40,10 +45,8 @@ public abstract class NPC implements Steerable, Meetable, Generable
     }
 
     //Generable
-    public void generate(Board b, float p)
-    {
-	///TODO
-    }
+    public abstract void generate(Game g, int nb);
+   
 
    
 }

@@ -1,4 +1,4 @@
-public class Resurrector extends NPC
+public class Resurrector extends NPC 
 {
     public Resurrector(Position pos)
     {
@@ -21,6 +21,11 @@ public class Resurrector extends NPC
 	this.dir = new Direction(dir);
     }
 
+    public Position getPosition()
+    {
+	return new Position(this.pos);
+    }
+
     //Meetable
     public void collideWith(Steerable s)
     {
@@ -28,9 +33,9 @@ public class Resurrector extends NPC
     }
 
     //Generable
-    public void generate(Board b, float p)
+    public  void generate(Game g, int nb)
     {
-	///TODO
+
     }
 
     

@@ -1,4 +1,6 @@
 public interface Generable
 {
-    abstract public void generate(Board b, float f);
+    abstract public void generate(Game g, int nb);
 }
+
+
