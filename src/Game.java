@@ -17,7 +17,7 @@ public class Game
 	this.nbRemaindTile = (this.board.getWidth()-wallWidth*2) * (this.board.getHeight()-wallWidth*2);
 	
 
-	fillObstacle();
+	fillNPC(100);
     }
 
     public Game(int width,int height)
@@ -26,21 +26,73 @@ public class Game
 	
     }
     
-    private void fillObstacle()
+    private void fillObstacle(int nb)
     {
-	Obstacle o = new Spin( getRandomFreePosition() );
+	//pour ajouter un type d'obstacle, il suffit d'incrémenter nbObstacle et de 
+	// rajouter un case au switch
+	Obstacle o = null;
+	final int nbObstacle = 2;
+	int randNum;
 
-	for(int i = 0 ; i<50; i++)
+	for(int i = 0 ; i<nb; i++)
 	    {
-		this.board.addTile(o);
+		randNum = (int)(Math.random()*nbObstacle); 
+		
+		switch(randNum)
+		    {
+		    case 0:
+			o = new Spin( getRandomFreePosition() );
+			break;
+
+		    case 1:
+			o = new Wall( getRandomFreePosition() );
+			break;
+
+			
+		    }
+
+		if(o != null) this.board.addTile(o);
 	    }
 
 	
     }
+
     
-    private void fillNPC()
+    private void fillNPC(int nb)
     {
+
+	//pour ajouter un type d'obstacle, il suffit d'incrémenter nbObstacle et de 
+	// rajouter un case au switch
+	NPC n = null;
+	final int nbNPC = 3;
+	int randNum;
+
+	for(int i = 0 ; i<nb; i++)
+	    {
+		randNum = (int)(Math.random()*nbNPC); 
+		
+		switch(randNum)
+		    {
+		    case 0:
+			n = new Walker( getRandomFreePosition() );
+			break;
+
+		    case 1:
+			n = new Resurrector( getRandomFreePosition() );
+			break;
+			
+		    case 2:
+			n = new Stoner( getRandomFreePosition() );
+			break;
+
+			
+		    }
+
+		if(n != null) this.addSteerable(n);
+	    }
+
 	
+    
     }
     
     public Board getBoard()
