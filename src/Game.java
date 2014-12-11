@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game
 {
@@ -18,6 +19,7 @@ public class Game
 	
 
 	fillNPC(100);
+	fillObstacle(50);
     }
 
     public Game(int width,int height)
@@ -103,6 +105,25 @@ public class Game
     //lance la simualtion
     public void execute()
     {
+	Scanner sc = new Scanner(System.in);
+
+	while( true ) // TODO sortie du programme propre
+	    {
+		System.out.println(this);
+		nextStep();
+		
+		if( this.stepByStep )
+		    {
+			sc.next();// TODO meilleure saisie clavier
+		    }
+		else
+		    {
+			try{
+			    
+			    Thread.sleep(10);
+			}catch(Exception e){e.printStackTrace();}
+		    }
+	    }
     }
 
     //calcul le prochain état de la simulation
@@ -110,9 +131,48 @@ public class Game
     {
 	for(Steerable s: this.steerable)
 	    {
-		
+		nextStep(s);
 	    }
     }
+
+    //calcul le prochain etat d'un steerable s
+    private void nextStep(Steerable s)
+    {
+	Position nextPos = new Position(
+	s.getPosition().getX() + s.getDirection().getDx(),
+	s.getPosition().getY() + s.getDirection().getDy()   );
+	
+	Meetable m = null;
+	NPC potentialNPC = null;
+
+	if( isFree(nextPos) )
+	    {
+		// tout va bien, deplacement
+		s.setPosition( nextPos );
+	    }
+	else
+	    {
+		// entre en collision
+		potentialNPC = NPCat(nextPos);
+
+
+		if( potentialNPC == null )
+		    {
+			// avec un obstacle
+			m = (Meetable)this.board.getTile(nextPos);
+		    } 
+		else 
+		    {
+			// avec un npc
+			m = potentialNPC;
+		    }
+
+		m.collideWith(s);
+		
+	    }
+				      
+    }
+
 
     //affiche l'état courant
     public String toString()

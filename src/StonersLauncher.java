@@ -8,7 +8,7 @@ public class StonersLauncher
 	Position ptest2 = new Position(3,3);
 
 	Game jeu = new Game(50,95);
-
+	jeu.execute();
 
 	System.out.println(jeu);
 

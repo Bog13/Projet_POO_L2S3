@@ -1,4 +1,7 @@
-public abstract class NPC implements Steerable, Meetable, Generable
+// None Playable Character --> NPC
+// car Character est une classe java
+ 
+public abstract class NPC implements Steerable, Meetable
 {
     protected Position pos;
     protected Direction dir;
@@ -8,7 +11,17 @@ public abstract class NPC implements Steerable, Meetable, Generable
     public NPC(Position pos, String id)
     {
 	this.pos = new Position(pos);
-	this.dir = new Direction();
+	
+	int x,y;
+	
+	do
+	    {
+		x = (int)(Math.random()*4 -2);
+		y = (int)(Math.random()*4 -2);
+	    } while(x==0 && y==0);
+	
+	this.dir = new Direction(x ,y );
+	
 
 	this.id = id;
 
@@ -39,6 +52,12 @@ public abstract class NPC implements Steerable, Meetable, Generable
     {
 	return new Position(this.pos);
     }
+    
+    
+    public void setPosition(Position pos)
+    {
+	this.pos = new Position(pos);
+    }
 
     //Meetable
     public void collideWith(Steerable s)
@@ -46,8 +65,7 @@ public abstract class NPC implements Steerable, Meetable, Generable
 	///TODO
     }
 
-    //Generable
-    public abstract void generate(Game g, int nb);
+    
    
 
    

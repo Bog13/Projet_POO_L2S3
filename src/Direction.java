@@ -22,11 +22,18 @@ public class Direction
     }
 
     //assure la cohérence de dx et dy pour le constructeur
-    private int format(int n)
+    public int format(int n)
     {
 	if(n > 0) return 1;
 	if(n < 0) return -1;
 	return 0;
+    }
+
+    //assure la cohérence de la direction
+    public void format()
+    {
+        this.dx = format(this.dx);
+	this.dy = format(this.dy);
     }
 
     public int getDx()

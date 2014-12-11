@@ -58,6 +58,10 @@ public class Board {
 	return (matTile[y][x]);
     }
 
+    public Tile getTile(Position pos){
+	return getTile(pos.getX(),pos.getY());
+    }
+
     
 
     public void addTile(Tile t)

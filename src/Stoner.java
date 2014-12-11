@@ -10,21 +10,6 @@ public class Stoner extends NPC
 	return "X";
     }
 
-    //Steerable
-    public Direction getDirection()
-    {
-	return this.dir;
-    }
-
-    public void setDirection(Direction dir)
-    {
-	this.dir = new Direction(dir);
-    }
-
-    public Position getPosition()
-    {
-	return new Position(this.pos);
-    }
 
     //Meetable
     public void collideWith(Steerable s)
@@ -32,11 +17,7 @@ public class Stoner extends NPC
 	///TODO
     }
 
-    //Generable
-    public void generate(Game g, int nb)
-    {
 
-    }
 
     
 }

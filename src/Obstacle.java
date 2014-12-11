@@ -1,4 +1,4 @@
-public abstract class Obstacle extends Tile implements Generable{
+public abstract class Obstacle extends Tile implements Meetable {
 
     protected Position pos;
 
@@ -7,11 +7,8 @@ public abstract class Obstacle extends Tile implements Generable{
     }
 
     abstract public String toString ();
+
+    public abstract void collideWith(Steerable s);
     
-    //Generable
-    public void generate(Game g, int nb)
-    {
-	///TODO
-    }
 }
 

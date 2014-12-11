@@ -10,9 +10,23 @@ public class Spin extends Obstacle {
 	return ("@");
     }	
 
-    public  void generate(Game g, int nb)
+    public void collideWith(Steerable s)
     {
+	Direction dir = s.getDirection();
 	
+	int x = dir.getDx();
+	int y = dir.getDy();
+	
+	int x2 = ((int)(Math.random() * 4 )- 2);
+	int y2 = ((int)(Math.random() * 4 )- 2);
+
+	dir.setDx(x2);
+	dir.setDy(y2);
+
+	dir.format();
+
+        
+        
     }
 	
 }

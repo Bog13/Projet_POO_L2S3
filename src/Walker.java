@@ -10,21 +10,6 @@ public class Walker extends NPC
 	return "O";
     }
 
-    //Steerable
-    public Direction getDirection()
-    {
-	return this.dir;
-    }
-
-    public void setDirection(Direction dir)
-    {
-	this.dir = new Direction(dir);
-    }
-
-    public Position getPosition()
-    {
-	return new Position(this.pos);
-    }
 
     //Meetable
     public void collideWith(Steerable s)
@@ -32,11 +17,8 @@ public class Walker extends NPC
 	///TODO
     }
 
-    //Generable
-    public  void generate(Game g, int nb)
-    {
-	
-    }
+
+    
 
     
 }
