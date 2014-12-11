@@ -8,6 +8,8 @@ public abstract class NPC implements Steerable, Meetable, Generable
     public NPC(Position pos, String id)
     {
 	this.pos = new Position(pos);
+	this.dir = new Direction();
+
 	this.id = id;
 
 	isPetrified = true;

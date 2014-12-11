@@ -5,8 +5,13 @@ public class Direction
 
     public Direction(int dx,int dy)
     {
-	this.dx = dx;
-	this.dy = dy;
+	this.dx = format(dx);
+	this.dy = format(dy);
+    }
+
+    public Direction()
+    {
+	this(0,0);
     }
 
     //constructeur de "recopie"
@@ -14,6 +19,14 @@ public class Direction
     {
 	this.dx = d.dx;
 	this.dy = d.dy;
+    }
+
+    //assure la cohérence de dx et dy pour le constructeur
+    private int format(int n)
+    {
+	if(n > 0) return 1;
+	if(n < 0) return -1;
+	return 0;
     }
 
     public int getDx()
