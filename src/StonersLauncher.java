@@ -30,7 +30,16 @@ public class StonersLauncher
 		jeu = new Game(50,95);
 	    }
 
-	jeu.executeTestCollisionNPC();
+	if(  askQuestion("Voulez vous executer le jeu en mode test ?")  )
+	    {
+		jeu.executeTestCollisionNPC();
+	    }
+	else
+	    {
+		jeu.executeGame();
+	    }
+
+
 	
 
 
