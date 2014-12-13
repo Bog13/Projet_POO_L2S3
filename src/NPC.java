@@ -1,6 +1,9 @@
-// None Playable Character --> NPC
-// car Character est une classe java
  
+/**
+ * None Playable Character ( NPC )
+ * @author Sylvain DUMONTET
+ * @author Berenger OSSETE GOMBE
+ */
 public abstract class NPC implements Steerable, Meetable
 {
     protected Position pos;
@@ -8,6 +11,10 @@ public abstract class NPC implements Steerable, Meetable
     protected String id;
     protected boolean isPetrified;
 
+    /**
+     * @param pos Position du NPC
+     * @param id Identifiant du NPC
+     */
     public NPC(Position pos, String id)
     {
 	this.pos = new Position(pos);
@@ -42,7 +49,7 @@ public abstract class NPC implements Steerable, Meetable
 	return this.isPetrified;
     }
 
-    //Steerable
+    //Methode de Steerable
     public Direction getDirection()
     {
 	return this.dir;
@@ -64,7 +71,12 @@ public abstract class NPC implements Steerable, Meetable
 	this.pos = new Position(pos);
     }
 
-    //Meetable
+    //Methode de Meetable
+
+
+    /**
+     * @param s Steerable dont la direction change lors de la collision avec l'instance courante du NPC
+     */
     public void collideWith(Steerable s)
     {
 	NPC n = (NPC)s;

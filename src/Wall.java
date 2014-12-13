@@ -1,7 +1,14 @@
+/**
+ * @author Sylvain DUMONTET
+ * @author Berenger OSSETE GOMBE
+ */
 public class Wall extends Obstacle {
 
     private Position pos;
 
+    /**
+     * @param p Position de construction du Wall
+     */
     protected Wall(Position p){
 	super("wall",p);
     }
@@ -10,6 +17,9 @@ public class Wall extends Obstacle {
 	return ("#");
     }
 
+    /**
+     * @param s Steerable qui effectue une rotation dans le sens horaire lors de sa collision avec l'instance courante de Wall
+     */
     public void collideWith(Steerable s)
     {
 	float angle = (float)( - Math.PI/2 );

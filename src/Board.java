@@ -1,3 +1,7 @@
+/**
+ * @author Sylvain DUMONTET
+ * @author Berenger OSSETE GOMBE
+ */
 public class Board {
 
     final private int height;
@@ -5,10 +9,11 @@ public class Board {
     private Tile [][] matTile;
     private Game game;
  
-    public Board(){
-	this(20,20);
-    }
-
+   
+    /**
+     * @param height int representant la hauteur du plateau a construire
+     * @param width int representant la largeur du plateau a construire
+     */
     public Board (int height, int width){
 	this.height=height;
 	this.width=width;
@@ -19,9 +24,18 @@ public class Board {
 	
     }
 
+    /**
+     * construit un plateau de 20x20
+     */
+     public Board(){
+	this(20,20);
+    }
+
     
 
-    // Ajoute des murs autour du plateau et rempli le centre de vide
+    /**
+     * Ajoute des murs autour du plateau et rempli le centre de vide
+     */
     private void addWall()
     {
 	for(int i=0; i<this.height; i++)
@@ -63,7 +77,9 @@ public class Board {
     }
 
     
-
+    /**
+     * @param t Tile a ajouter a l'instance courante du plateau
+     */
     public void addTile(Tile t)
     {
 	if( t != null )

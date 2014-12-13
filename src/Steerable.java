@@ -1,3 +1,8 @@
+/**
+ * Element possedant une direction et une position pouvant changer 
+ * @author Sylvain DUMONTET
+ * @author Berenger OSSETE GOMBE
+ */
 public interface Steerable
 {
     abstract Direction getDirection();

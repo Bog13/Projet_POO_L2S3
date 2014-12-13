@@ -1,41 +1,72 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
-public class Game
+/**
+ * @author Sylvain DUMONTET
+ * @author Berenger OSSETE GOMBE
+ */
+public class Game 
 {
     private boolean stepByStep;
     private ArrayList<Steerable> steerable;
     private Board board;
     private int nbRemaindTile;
     private int timer;
+    private final int stepMax;
+    private int currentStep;
 
+
+    /**
+     *
+     *  @param width Largeur du plateau
+     *  @param height Hauteur du plateau
+     *  @param sbs Etat du mode pas-a-pas
+     */
     public Game(int width,int height, boolean sbs)
     {
 	this.stepByStep = sbs;
 	this.steerable = new ArrayList<Steerable>();
 	this.board = new Board(width,height);
 
+	this.stepMax = 500;
+	this.currentStep = 0;
+
 	int wallWidth = 1;
 	this.nbRemaindTile = (this.board.getWidth()-wallWidth*2) * (this.board.getHeight()-wallWidth*2);
 	
 	this.timer = 100;//en param ?
+
+	
     }
 
+    /**
+     *  @param width Largeur du plateau
+     *  @param height Hauteur du plateau
+     */
     public Game(int width,int height)
     {
 	this(width,height,false);
 	
     }
 
+
+    /**
+     * @param n Nombre de NPCs a generer
+     * @param o Nombre d'obstacles a generer
+     */
     public void initAlea(int n, int o)
     {
 	fillObstacle(o);
 	fillNPC(n);
     }
     
+    /**
+     * @param nb Nombre d'obstacle a ajouter au Board
+     */
     private void fillObstacle(int nb)
     {
-	//pour ajouter un type d'obstacle, il suffit d'incrémenter nbObstacle et de 
+	//pour ajouter un type d'obstacle, il suffit d'incrementer nbObstacle et de 
 	// rajouter un case au switch
 	Obstacle o = null;
 	final int nbObstacle = 2;
@@ -64,11 +95,14 @@ public class Game
 	
     }
 
-    
+    /**
+     * @param nb Nombre de NPC a ajouter
+     * 
+     */
     private void fillNPC(int nb)
     {
 
-	//pour ajouter un type d'obstacle, il suffit d'incrémenter nbObstacle et de 
+	//pour ajouter un type d'obstacle, il suffit d'incrementer nbObstacle et de 
 	// rajouter un case au switch
 	NPC n = null;
 	final int nbNPC = 3;
@@ -102,17 +136,31 @@ public class Game
     
     }
     
+    
     public Board getBoard()
     {
 	return this.board;
     }
 
+
+    /**
+     * Permet de lancer le jeu avec des parametres par defauts
+     * 
+     */
     public void executeGame()
     {
-	initAlea(50,30);
+	int nbTile = (this.board.getWidth()-2) *( this.board.getHeight() -2);
+	initAlea((int)(nbTile * 0.01),(int)(nbTile * 0.01));
 	execute();
     }
 
+    /**
+     * @param firstPetrified Defini si la premiere range de test est petrifiee 
+     * @param secondPetrified Defini si la seconde range de test est petrifiee
+     * @param posY Ordonnee de la premiere ligne de test
+     * @param offset Espace entre chaque ligne de test
+     * 
+     */
     private void executeTestCollisionNPC(boolean firstPetrified, boolean secondPetrified,int posY,int offset)
     {	
 	//walker vs walker
@@ -184,6 +232,12 @@ public class Game
 	
     }
 
+
+
+    /**
+     * lance le jeu pour une serie de tests
+     * 
+     */
     public void executeTestCollisionNPC()
     {
 	executeTestCollisionNPC(false,false,1,2);
@@ -191,20 +245,89 @@ public class Game
 	executeTestCollisionNPC(true,false,30,2);
 	execute();   
     }
+    
 
-    //lance la simualtion
+
+    /**
+     * Affiche une page de presentation/ instruction avant l'execution du jeu
+     * 
+     */
+    private void infoGame()
+    {
+
+	InputStreamReader lecteur=new InputStreamReader(System.in);
+	int keyValue = 0;
+
+	for(int i=0; i<100; i++)System.out.println();
+
+	System.out.println("STONERS : Les pétrifieurs\n");
+	if(this.stepByStep) 
+	    {
+		System.out.println("MODE pas-à-pas activ");
+		System.out.println("Une fois la simulation lancée,appuyez sur la touche <ENTRÉE> pour passer au PAS SUIVANT");
+		System.out.println("Une fois la simulation lancée,appuyez sur la touche <q> pour QUITTER");
+	    }
+	else System.out.println("MODE pas-à-pas désactivé");
+
+	
+	System.out.println("\n\nAppuyez sur <ENTRÉE> pour continuer..");
+
+	for(int i=0; i<40; i++)System.out.println();
+	
+	while(keyValue == 0)
+	    {
+
+		try
+		    {
+			keyValue = lecteur.read();
+			
+		    }
+		catch(Exception e){keyValue=0;}
+
+	    }
+	  
+    }
+
+
+    /**
+     * Lance le jeu
+     * 
+     */
     private void execute()
     {
 	Scanner sc = new Scanner(System.in);
+	InputStreamReader lecteur=new InputStreamReader(System.in);
+	int keyValue = 0;
+	boolean running = true;
 
-	while( true ) // TODO sortie du programme propre
+	//presentation
+	infoGame();
+
+	//lancement du jeu
+	while( running && this.currentStep < this.stepMax) 
 	    {
 		System.out.println(this);
 		nextStep();
-		
-		if( this.stepByStep )
+
+		if( this.stepByStep )//keyevent dispacher
 		    {
-			sc.next();// TODO meilleure saisie clavier
+			
+			while(keyValue == 0)
+			    {
+				try
+				    {
+					keyValue = lecteur.read();
+     
+				    }
+				catch(Exception e){keyValue=0;}
+			    }
+
+			//on lit keyValue
+			if(keyValue == (int)('q')) running = false;
+
+			//
+			keyValue = 0;
+			
 		    }
 		else
 		    {
@@ -213,10 +336,19 @@ public class Game
 			    Thread.sleep(this.timer);
 			}catch(Exception e){e.printStackTrace();}
 		    }
+
+		this.currentStep ++;
+
 	    }
+
+	//message final
+	System.out.println("Fin de jeu, merci d'avoir joué !");
     }
 
-    //calcul le prochain état de la simulation
+    /**
+     * Calcul le prochain etat de la simulation
+     * 
+     */
     private void nextStep()
     {
 	for(Steerable s: this.steerable)
@@ -225,7 +357,11 @@ public class Game
 	    }
     }
 
-    //calcul le prochain etat d'un steerable s
+    /**
+     * Calcul le prochain etat d'un steerable s
+     * @param s Steerable dont on veut calculer le prochain etat
+     * 
+     */
     private void nextStep(Steerable s)
     {
 	Position nextPos = new Position(
@@ -268,7 +404,10 @@ public class Game
     }
 
 
-    //affiche l'état courant
+    /**
+     * Affiche l'etat courant
+     * @return String chaine de caractere a afficher
+     */
     public String toString()
     {
 
@@ -297,7 +436,11 @@ public class Game
 	
     }
 
-    //retourne le NPC à la position pos ou null
+    /**
+     * retourne le NPC a la position pos ou retourne null
+     * @param pos Position a tester
+     * @return NPC reference du npc a la position pos
+     */
     public NPC NPCat(Position pos)
     {
 	NPC res = null;
@@ -323,12 +466,20 @@ public class Game
 	return res; 
     }
 
+    /**
+     * @param pos Position a tester
+     * @return boolean True si la position est sur le damier
+     */
     public boolean isValid(Position pos)
     {
 	return (pos.getX()>=0 && pos.getX() < this.board.getWidth()
 		&& pos.getY()>=0 && pos.getY() < this.board.getHeight());
     }
 
+    /**
+     * @param pos Position a tester
+     * @return boolean True si la position n'est pas occuppee par un npc ou un obstacle
+     */
     public boolean isFree(Position pos)
     {
 	return ( isValid(pos) 
@@ -336,6 +487,10 @@ public class Game
 		 && this.board.getTile(pos.getX(),pos.getY()) instanceof Empty   );				       
     }
 
+    /**
+     * Retourne une position aleatoire qui est libre
+     * @return Position Position aleatoire libre
+     */
     public Position getRandomFreePosition()
     {
 	Position res = new Position(0,0);
@@ -353,20 +508,29 @@ public class Game
 	return res;
     }
 
+
+    /**
+     *@param s Steerable a ajouter dans le jeu
+     */
     public void addSteerable(Steerable s)
     {
 	if( isFree(s.getPosition()) )
 	    {
 		this.steerable.add(s);
 	    }
-	else System.out.println("Impossible d'ajouter un steerable !"); // TODO exception ?
+	
 
     }
-
+    
+    /**
+     * @return ArrayList<Steerable> Collection de steerable du jeu
+     */
     public ArrayList<Steerable> getSteerables()
     {
 	return this.steerable;
     }
+
+  
 
 
 }

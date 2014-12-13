@@ -1,7 +1,14 @@
+/**
+ * @author Sylvain DUMONTET
+ * @author Berenger OSSETE GOMBE
+ */
 public class Spin extends Obstacle {
 
     private Position pos;
 
+    /**
+     * @param p Position de construction du Spin
+     */
     protected Spin(Position p){
 	super("spin",p);
     }
@@ -10,6 +17,9 @@ public class Spin extends Obstacle {
 	return ("@");
     }	
 
+    /**
+     * @param s Steerable dont la direction est modifiee aleatoirement lors de sa collision avec l'instante courante de Spin
+     */
     public void collideWith(Steerable s)
     {
 	Direction dir = s.getDirection();
@@ -37,4 +47,3 @@ public class Spin extends Obstacle {
     }
 	
 }
-
