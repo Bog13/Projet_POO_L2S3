@@ -1,4 +1,4 @@
-public class Stoner extends NPC
+public class Stoner extends NPC implements StoneModificator
 {
     public Stoner(Position pos)
     {
@@ -7,15 +7,26 @@ public class Stoner extends NPC
 
     public String toString()
     {
+	if(this.isPetrified) return "x";
 	return "X";
     }
 
-
+    
     //Meetable
     public void collideWith(Steerable s)
     {
-	///TODO
+	super.collideWith(s);
+
+	NPC n = (NPC)(s);
+	petrifiedModificator(n);
     }
+
+    public void petrifiedModificator(NPC petrified)
+    {
+	petrified.setIsPetrified(true);
+    }
+
+   
 
 
 

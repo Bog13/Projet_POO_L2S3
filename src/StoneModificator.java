@@ -1,4 +1,4 @@
 public interface StoneModificator
 {
-    abstract void setIsPetrified(NPC petrified);
+    abstract void petrifiedModificator(NPC petrified);
 }

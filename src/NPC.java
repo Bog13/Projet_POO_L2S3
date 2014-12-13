@@ -20,12 +20,12 @@ public abstract class NPC implements Steerable, Meetable
 		y = (int)(Math.random()*4 -2);
 	    } while(x==0 && y==0);
 	
-	this.dir = new Direction(x ,y );
+	this.dir = new Direction(x ,y);
 	
 
 	this.id = id;
 
-	isPetrified = true;
+	this.isPetrified = false;
     }
 
     
@@ -34,7 +34,12 @@ public abstract class NPC implements Steerable, Meetable
 
     public void setIsPetrified(boolean petrified)
     {
-	isPetrified = petrified;
+	this.isPetrified = petrified;
+    }
+
+    public boolean getIsPetrified()
+    {
+	return this.isPetrified;
     }
 
     //Steerable
@@ -62,7 +67,15 @@ public abstract class NPC implements Steerable, Meetable
     //Meetable
     public void collideWith(Steerable s)
     {
-	///TODO
+	NPC n = (NPC)s;
+
+	if(!n.getIsPetrified())
+	    {
+		s.getDirection().setDx(-s.getDirection().getDx());	
+		s.getDirection().setDy(-s.getDirection().getDy());
+	    }
+
+	
     }
 
     

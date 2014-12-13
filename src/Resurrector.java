@@ -1,4 +1,4 @@
-public class Resurrector extends NPC 
+public class Resurrector extends NPC implements StoneModificator
 {
     public Resurrector(Position pos)
     {
@@ -7,17 +7,25 @@ public class Resurrector extends NPC
 
     public String toString()
     {
+	if(this.isPetrified)return "r";
 	return "R";
     }
 
 
-    //Meetable
+   
+     //Meetable
     public void collideWith(Steerable s)
     {
-	///TODO
+	super.collideWith(s);
+
+	NPC n = (NPC)(s);
+	petrifiedModificator(n);
     }
 
-   
-
+    public void petrifiedModificator(NPC petrified)
+    {
+	petrified.setIsPetrified(false);
+    }
+    
     
 }

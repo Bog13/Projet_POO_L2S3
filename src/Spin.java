@@ -17,9 +17,16 @@ public class Spin extends Obstacle {
 	int x = dir.getDx();
 	int y = dir.getDy();
 	
-	int x2 = ((int)(Math.random() * 4 )- 2);
-	int y2 = ((int)(Math.random() * 4 )- 2);
-
+	int x2; 
+	int y2; 
+	
+	do
+	    {
+		x2 = ((int)(Math.random() * 4 )- 2);
+		y2 = ((int)(Math.random() * 4 )- 2);
+	    }
+	while(x2 == 0 && y2 ==0);
+	
 	dir.setDx(x2);
 	dir.setDy(y2);
 

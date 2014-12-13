@@ -7,6 +7,7 @@ public class Walker extends NPC
 
     public String toString()
     {
+	if(this.isPetrified)return "o";
 	return "O";
     }
 
@@ -14,6 +15,7 @@ public class Walker extends NPC
     //Meetable
     public void collideWith(Steerable s)
     {
+	super.collideWith(s);
 	///TODO
     }
 
