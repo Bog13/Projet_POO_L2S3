@@ -9,7 +9,7 @@ public class Spin extends Obstacle {
     /**
      * @param p Position de construction du Spin
      */
-    protected Spin(Position p){
+    public Spin(Position p){
 	super("spin",p);
     }
 

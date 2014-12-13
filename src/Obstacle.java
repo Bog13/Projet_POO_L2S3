@@ -10,7 +10,7 @@ public abstract class Obstacle extends Tile implements Meetable {
      * @param id Identifiant de l'obstacle a construire
      * @param p Position de l'obstacle a construire
      */
-    protected Obstacle(String id,Position p){
+    public Obstacle(String id,Position p){
 	super(id,p);
     }
 
