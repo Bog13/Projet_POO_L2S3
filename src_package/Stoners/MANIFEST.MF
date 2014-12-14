@@ -1,1 +1,1 @@
-MainClass: StonersLauncher
+Main-Class: fr/univfcomte/sDumontet_bOsseteGombe/Stoners/StonersLauncher
