@@ -1,4 +1,5 @@
 package fr.univfcomte.sDumontet_bOsseteGombe.Stoners;
+
 /**
  * @author Sylvain DUMONTET
  * @author Berenger OSSETE GOMBE

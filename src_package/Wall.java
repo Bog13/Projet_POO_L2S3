@@ -10,7 +10,7 @@ public class Wall extends Obstacle {
     /**
      * @param p Position de construction du Wall
      */
-    protected Wall(Position p){
+    public Wall(Position p){
 	super("wall",p);
     }
 

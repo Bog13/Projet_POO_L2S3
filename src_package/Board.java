@@ -8,7 +8,6 @@ public class Board {
     final private int height;
     final private int width;
     private Tile [][] matTile;
-    private Game game;
  
    
     /**

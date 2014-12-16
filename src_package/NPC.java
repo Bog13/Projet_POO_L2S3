@@ -1,4 +1,5 @@
 package fr.univfcomte.sDumontet_bOsseteGombe.Stoners;
+
 /**
  * None Playable Character ( NPC )
  * @author Sylvain DUMONTET

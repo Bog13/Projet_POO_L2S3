@@ -106,7 +106,7 @@ public class Game
 	//pour ajouter un type d'obstacle, il suffit d'incrementer nbObstacle et de 
 	// rajouter un case au switch
 	NPC n = null;
-	final int nbNPC = 3;
+	final int nbNPC = 5;
 	int randNum;
 
 	for(int i = 0 ; i<nb; i++)
@@ -125,6 +125,14 @@ public class Game
 			
 		    case 2:
 			n = new Stoner( getRandomFreePosition() );
+			break;
+
+		    case 3:
+			n = new Wizard( getRandomFreePosition() );
+			break;
+
+		    case 4:
+			n = new Vampire( getRandomFreePosition(), this);
 			break;
 
 			
@@ -156,6 +164,23 @@ public class Game
     }
 
     /**
+     * @param a NPC qui entre en collision avec b
+     * @param firstPetrified Defini si a est petrifie 
+     * @param b NPC qui entre en collision avec a
+     * @param secondPetrified Defini si b est petrifie
+     * 
+     */
+    private void executeTestBeetween(NPC a, boolean firstPetrified, NPC b,boolean secondPetrified)
+    {
+	
+	a.setDirection(new Direction(1,0));
+	b.setDirection(new Direction(-1,0));
+	a.setIsPetrified(firstPetrified);
+	b.setIsPetrified(secondPetrified);
+	addSteerable(a);addSteerable(b);
+    }
+	
+    /**
      * @param firstPetrified Defini si la premiere range de test est petrifiee 
      * @param secondPetrified Defini si la seconde range de test est petrifiee
      * @param posY Ordonnee de la premiere ligne de test
@@ -167,70 +192,69 @@ public class Game
 	//walker vs walker
 	Walker s1 = new Walker(new Position(10,posY));
 	Walker s2 = new Walker(new Position(this.board.getWidth()-10,posY));
-	s1.setDirection(new Direction(1,0));
-	s2.setDirection(new Direction(-1,0));
-	s1.setIsPetrified(firstPetrified);
-	s2.setIsPetrified(secondPetrified);
-	addSteerable(s1);addSteerable(s2);
+	executeTestBeetween(s1,firstPetrified,s2,secondPetrified);
 	
 	posY += offset;
 	
 	//walker vs stoner
 	Walker s3 = new Walker(new Position(10,posY));
 	Stoner s4 = new Stoner(new Position(this.board.getWidth()-10,posY));
-	s3.setDirection(new Direction(1,0));
-	s4.setDirection(new Direction(-1,0));
-	s3.setIsPetrified(firstPetrified);
-	s4.setIsPetrified(secondPetrified);
-	addSteerable(s3);addSteerable(s4);
+        executeTestBeetween(s3,firstPetrified,s4,secondPetrified);
 
 	posY += offset;
 
 	//walker vs ressurector
 	Walker s5 = new Walker(new Position(10,posY));
 	Resurrector s6 = new Resurrector(new Position(this.board.getWidth()-10,posY));
-	s5.setDirection(new Direction(1,0));
-	s6.setDirection(new Direction(-1,0));
-	s5.setIsPetrified(firstPetrified);
-	s6.setIsPetrified(secondPetrified);
-	addSteerable(s5);addSteerable(s6);
+	executeTestBeetween(s5,firstPetrified,s6,secondPetrified);
 
 	posY += offset;
 
 	//stoner vs stoner
 	Stoner s7 = new Stoner(new Position(10,posY));
 	Stoner s8 = new Stoner(new Position(this.board.getWidth()-10,posY));
-	s7.setDirection(new Direction(1,0));
-	s8.setDirection(new Direction(-1,0));
-	s7.setIsPetrified(firstPetrified);
-	s8.setIsPetrified(secondPetrified);
-	addSteerable(s7);addSteerable(s8);
+        executeTestBeetween(s7,firstPetrified,s8,secondPetrified);
 
 	posY += offset;
 
 	//stoner vs ressurector
 	Stoner s9 = new Stoner(new Position(10,posY));
         Resurrector s10 = new Resurrector(new Position(this.board.getWidth()-10,posY));
-	s9.setDirection(new Direction(1,0));
-	s10.setDirection(new Direction(-1,0));
-	s9.setIsPetrified(firstPetrified);
-	s10.setIsPetrified(secondPetrified);
-	addSteerable(s9);addSteerable(s10);
+        executeTestBeetween(s9,firstPetrified,s10,secondPetrified);
 
 	posY += offset;
 
 	//resurrector vs ressurector
 	Resurrector s11 = new Resurrector(new Position(10,posY));
         Resurrector s12 = new Resurrector(new Position(this.board.getWidth()-10,posY));
-	s11.setDirection(new Direction(1,0));
-	s12.setDirection(new Direction(-1,0));
-	s11.setIsPetrified(firstPetrified);
-	s12.setIsPetrified(secondPetrified);
-	addSteerable(s11);addSteerable(s12);
-
+        executeTestBeetween(s11,firstPetrified,s12,secondPetrified);
+	
 	posY += offset;
 
+	//wizard vs walker
+	Wizard s13 = new Wizard(new Position(10,posY));
+        Walker s14 = new Walker(new Position(this.board.getWidth()-10,posY));
+        executeTestBeetween(s13,firstPetrified,s14,secondPetrified);
+	posY += offset;
 	
+
+	//wizard vs stoner
+	Wizard s15 = new Wizard(new Position(10,posY));
+        Stoner s16 = new Stoner(new Position(this.board.getWidth()-10,posY));
+        executeTestBeetween(s15,firstPetrified,s16,secondPetrified);
+	posY += offset;
+	
+	//vampire vs stoner
+	Vampire s17 = new Vampire(new Position(10,posY),this);
+        Stoner s18 = new Stoner(new Position(this.board.getWidth()-10,posY));
+        executeTestBeetween(s17,firstPetrified,s18,secondPetrified);
+	posY += offset;
+
+	//vampire vs walker
+	Vampire s19 = new Vampire(new Position(10,posY),this);
+        Walker s20 = new Walker(new Position(this.board.getWidth()-10,posY));
+        executeTestBeetween(s19,firstPetrified,s20,secondPetrified);
+	posY += offset;
     }
 
 
@@ -241,9 +265,9 @@ public class Game
      */
     public void executeTestCollisionNPC()
     {
-	executeTestCollisionNPC(false,false,1,2);
-	executeTestCollisionNPC(false,true,15,2);
-	executeTestCollisionNPC(true,false,30,2);
+	executeTestCollisionNPC(false,false,1,1);
+	executeTestCollisionNPC(false,true,15,1);
+	executeTestCollisionNPC(true,false,30,1);
 	execute();   
     }
     
@@ -310,7 +334,7 @@ public class Game
 		System.out.println(this);
 		nextStep();
 
-		if( this.stepByStep )//keyevent dispacher
+		if( this.stepByStep )
 		    {
 			
 			while(keyValue == 0)
